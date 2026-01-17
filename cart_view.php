@@ -5,27 +5,42 @@ $total = 0;
 ?>
 
 <style>
+
     .table-responsive {
         background: white;
         border-radius: 15px;
         padding: 20px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
+
     .summary-card {
         border: none;
         border-radius: 15px;
         box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         background: white;
     }
+
     .summary-card .card-header {
         background: white;
         font-weight: bold;
         border-bottom: 2px solid #f1f5f9;
         padding: 15px;
     }
+
     .summary-card .card-body {
         padding: 20px;
     }
+
+    @media (max-width: 768px) {
+    .table-responsive { 
+        padding: 10px; 
+    }
+
+    .table th, .table td { 
+        white-space: nowrap; 
+    } 
+    
+}
 </style>
 
 <div class="row">
@@ -93,8 +108,8 @@ $total = 0;
 </div>
 
 </div>
-<script src="main.js"></script>
 <script src="store.js"></script>
+<script src="main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

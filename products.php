@@ -2,7 +2,6 @@
 session_start();
 include 'header.php';
 
-// 1. PRODUCT DATA
 $products = [
     1 => ["name" => "Mechanical Keyboard","price" => 49.99,  "img" => "img/keyboard.png"],
     2 => ["name" => "Logitech g29","price" => 129.99, "img" => "img/g29.png"],
@@ -12,26 +11,31 @@ $products = [
     6 => ["name" => "Razer Mouse Pad","price" => 29.99,  "img" => "img/mousepad.png"]
 ];
 
-// 2. SORTING LOGIC
 $sort_option = isset($_GET['sort']) ? $_GET['sort'] : 'default';
 $sort_label = "Featured"; 
 
 if($sort_option == 'price_low') {
-    uasort($products, function($a, $b) { return $a['price'] - $b['price']; });
+    uasort($products, function($a, $b) { 
+        return $a['price'] - $b['price']; 
+    });
     $sort_label = "Price: Low to High";
 } 
 elseif($sort_option == 'price_high') {
-    uasort($products, function($a, $b) { return $b['price'] - $a['price']; });
+    uasort($products, function($a, $b) { 
+        return $b['price'] - $a['price']; 
+    });
     $sort_label = "Price: High to Low";
 } 
 elseif($sort_option == 'name_asc') {
-    uasort($products, function($a, $b) { return strcmp($a['name'], $b['name']); });
+    uasort($products, function($a, $b) { 
+        return strcmp($a['name'], $b['name']); 
+    });
     $sort_label = "Name: A-Z";
 }
 ?>
 
 <style>
-    /* Hero Banner */
+    
     .hero-section {
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         border-radius: 20px;
@@ -41,51 +45,126 @@ elseif($sort_option == 'name_asc') {
         position: relative;
         overflow: hidden;
     }
+
     .hero-section::after {
-        content: ''; position: absolute; top: -50%; right: -10%;
-        width: 400px; height: 400px;
+        content: ''; 
+        position: absolute; 
+        top: -50%; 
+        right: -10%;
+        width: 400px; 
+        height: 400px;
         background: radial-gradient(circle, rgba(99,102,241,0.4) 0%, rgba(0,0,0,0) 70%);
-        border-radius: 50%; z-index: 0;
+        border-radius: 50%; 
+        z-index: 0;
     }
-    /* Card Styles */
+
     .product-card {
-        background: white; border: 1px solid #f1f5f9; border-radius: 20px;
-        overflow: hidden; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        height: 100%; display: flex; flex-direction: column;
+        background: white; 
+        border: 1px solid #f1f5f9; 
+        border-radius: 20px;
+        overflow: hidden; 
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%; 
+        display: flex; 
+        flex-direction: column;
     }
+
     .product-card:hover {
-        transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        transform: translateY(-8px); 
+        box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         border-color: transparent;
     }
-    .img-container {
-        position: relative; height: 240px; background: #f8fafc; overflow: hidden;
-        display: flex; align-items: center; justify-content: center;
-    }
-    .img-container img { max-width: 80%; transition: transform 0.5s ease; }
-    .product-card:hover .img-container img { transform: scale(1.1) rotate(-2deg); }
-    .card-details { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
-    .product-cat { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; font-weight: 600; margin-bottom: 8px; }
-    .product-title { font-weight: 700; font-size: 1.15rem; margin-bottom: 10px; color: #1e293b; }
-    .product-price { font-size: 1.25rem; font-weight: 600; color: #6366f1; margin-bottom: 20px; }
-    
-    /* Button */
-    .btn-add {
-        width: 100%; padding: 12px; border: none; background: #f1f5f9;
-        color: #1e293b; border-radius: 12px; font-weight: 600;
-        display: flex; align-items: center; justify-content: center; gap: 10px;
-        transition: all 0.3s ease; margin-top: auto;
-    }
-    .btn-add:hover { background: #6366f1; color: white; box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25); }
-    .btn-add:active { transform: scale(0.98); }
 
-    /* Animations */
+    .img-container {
+        position: relative; 
+        height: 240px; 
+        background: #f8fafc;
+        overflow: hidden;
+        display: flex; 
+        align-items: center; 
+        justify-content: center;
+    }
+
+    .img-container img { 
+        max-width: 80%; 
+        transition: transform 0.5s ease; 
+    }
+
+    .product-card:hover .img-container img { 
+        transform: scale(1.1) rotate(-2deg); 
+    }
+
+    .card-details { 
+        padding: 25px; flex-grow: 1; 
+        display: flex; 
+        flex-direction: column; 
+    }
+
+    .product-cat { 
+        font-size: 0.75rem; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        color: #94a3b8; 
+        font-weight: 600; 
+        margin-bottom: 8px; 
+    }
+
+    .product-title { 
+        font-weight: 700; 
+        font-size: 1.15rem; 
+        margin-bottom: 10px; 
+        color: #1e293b; 
+    }
+
+    .product-price { 
+        font-size: 1.25rem; 
+        font-weight: 600; 
+        color: #6366f1; 
+        margin-bottom: 20px; 
+    }
+
+    .btn-add {
+        width: 100%; 
+        padding: 12px; 
+        border: none; 
+        background: #f1f5f9;
+        color: #1e293b; 
+        border-radius: 12px; 
+        font-weight: 600;
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        gap: 10px;
+        transition: all 0.3s ease; 
+        margin-top: auto;
+    }
+
+    .btn-add:hover { 
+        background: #6366f1; 
+        color: white; 
+        box-shadow: 0 10px 20px rgba(99, 102, 241, 0.25); 
+    }
+
+    .btn-add:active { 
+        transform: scale(0.98); 
+    }
+
     @keyframes fadeInUp {
-        from { opacity: 0; transform: translateY(30px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { 
+            opacity: 0; 
+            transform: translateY(30px); 
+        }
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
     }
+
     .product-wrapper {
-        opacity: 0; animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        opacity: 0; 
+        animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     }
+
     .product-wrapper:nth-child(1) { animation-delay: 0.1s; }
     .product-wrapper:nth-child(2) { animation-delay: 0.2s; }
     .product-wrapper:nth-child(3) { animation-delay: 0.3s; }
@@ -94,8 +173,39 @@ elseif($sort_option == 'name_asc') {
     .product-wrapper:nth-child(6) { animation-delay: 0.6s; }
 
     .fade-out-grid {
-        opacity: 0 !important; transform: translateY(-10px); transition: all 0.3s ease-out;
+        opacity: 0; 
+        transform: translateY(-10px); 
+        transition: all 0.3s ease-out;
     }
+
+    @media (max-width: 768px) {
+    .hero-section { 
+        padding: 30px 20px; 
+        text-align: center; 
+        margin-bottom: 30px; 
+    }
+
+    .hero-section h1 { 
+        font-size: 1.8rem; 
+    }
+
+    .hero-section p { 
+        font-size: 0.9rem; 
+        margin-bottom: 1rem; 
+    }
+    
+    .card-details { 
+        padding: 15px; 
+    }
+
+    .product-title { 
+        font-size: 0.95rem; 
+    }
+
+    .img-container { 
+        height: 160px; 
+    }
+}
 </style>
 
 <div class="container">
@@ -103,8 +213,7 @@ elseif($sort_option == 'name_asc') {
     <div class="hero-section text-center text-md-start d-flex align-items-center justify-content-between">
         <div style="z-index: 1;">
             <h1 class="display-5 fw-bold mb-3">Upgrade Your Setup.</h1>
-            <p class="lead text-white-50 mb-4">Premium gaming gear curated for performance.</p>
-            <a href="#shop-grid" class="btn btn-light rounded-pill px-4 py-2 fw-bold text-primary">Browse Collection</a>
+            <p class="lead text-white-50 mb-4">Premium gaming gear created for performance.</p>
         </div>
         <div class="d-none d-md-block" style="z-index: 1;">
             <i class="fa-solid fa-gamepad display-1 text-white-50 opacity-25"></i>
@@ -129,7 +238,7 @@ elseif($sort_option == 'name_asc') {
 
     <div class="row g-4" id="product-grid">
         <?php foreach ($products as $id => $product): ?>
-            <div class="col-sm-6 col-lg-4 product-wrapper">
+            <div class="col-12 col-sm-6 col-lg-4 product-wrapper">
                 <div class="product-card">
                     <div class="img-container">
                         <img src="<?php echo $product['img']; ?>" alt="<?php echo $product['name']; ?>">

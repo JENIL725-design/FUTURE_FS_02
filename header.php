@@ -1,3 +1,8 @@
+<?php
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+header("Cache-Control: post-check=0, pre-check=0", false);
+header("Pragma: no-cache");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +15,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <style>
+<style>
+
         :root {
-            --primary-color: #6366f1; /* Modern Indigo */
-            --secondary-color: #1e293b; /* Slate Dark */
-            --accent-color: #06b6d4; /* Cyan */
+            --primary-color: #6366f1;
+            --secondary-color: #1e293b;
+            --accent-color: #06b6d4; 
             --bg-color: #f8fafc;
             --text-dark: #0f172a;
         }
@@ -26,7 +32,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Modern Glass Navbar */
         .navbar {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -36,25 +41,25 @@
 
         .navbar-brand {
             font-weight: 700;
-            color: var(--secondary-color) !important;
+            color: var(--secondary-color);
             font-size: 1.5rem;
             letter-spacing: -0.5px;
         }
 
         .nav-link {
-            color: #64748b !important;
+            color: #64748b;
             font-weight: 500;
             margin: 0 10px;
             transition: color 0.3s;
         }
 
         .nav-link:hover {
-            color: var(--primary-color) !important;
+            color: var(--primary-color);
         }
 
         .btn-nav-cart {
             background: var(--secondary-color);
-            color: white !important;
+            color: white;
             border-radius: 50px;
             padding: 8px 25px;
             font-size: 0.9rem;
@@ -67,12 +72,22 @@
             box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
         }
 
-        /* Container adjustment */
         .main-content {
             padding-top: 40px;
             padding-bottom: 80px;
         }
-    </style>
+        
+    @media (max-width: 768px) {
+        .navbar-brand { 
+            font-size: 1.25rem; 
+        }
+
+        .btn-nav-cart { 
+            padding: 6px 15px; 
+            font-size: 0.8rem; 
+        }
+    }
+</style>
 </head>
 <body>
 
@@ -88,12 +103,10 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
-                <li class="nav-item"><a class="nav-link" href="products.php">Discover</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Deals</a></li>
                 <li class="nav-item">
                     <a class="nav-link btn-nav-cart ms-2" href="cart_view.php">
                         <i class="fa-solid fa-bag-shopping me-1"></i> Cart
-                        <span class="badge bg-white text-dark rounded-pill ms-1">
+                        <span id="cart-count" class="badge bg-white text-dark rounded-pill ms-1">
                             <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
                         </span>
                     </a>
